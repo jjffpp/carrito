@@ -12,7 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import util.HibernateUtil;
+import com.mercadolibre.util.HibernateUtil;
 
 /**
  *

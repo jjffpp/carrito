@@ -10,7 +10,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import util.HibernateUtil;
+import com.mercadolibre.util.HibernateUtil;
 
 /**
  *

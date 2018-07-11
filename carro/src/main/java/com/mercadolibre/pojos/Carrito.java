@@ -1,5 +1,5 @@
 package com.mercadolibre.pojos;
-// Generated 10/07/2018 15:18:06 by Hibernate Tools 4.3.1
+// Generated 11/07/2018 20:00:28 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;

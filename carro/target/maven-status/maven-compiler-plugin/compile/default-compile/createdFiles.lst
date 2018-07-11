@@ -1,5 +1,5 @@
+com\mercadolibre\Controller\Controller.class
 com\mercadolibre\configuration\InicioConfiguration.class
-util\HibernateUtil.class
 com\mercadolibre\model\AltaCarrito.class
 com\mercadolibre\pojos\Usuario.class
 com\mercadolibre\pojos\Carrito.class
@@ -7,6 +7,7 @@ com\mercadolibre\model\AgregarProducto.class
 com\mercadolibre\model\MontoEstado.class
 com\mercadolibre\pojos\CarritoConMonto.class
 com\mercadolibre\configuration\Inicio.class
+com\mercadolibre\util\HibernateUtil.class
 com\mercadolibre\model\EliminarCarrito.class
 com\mercadolibre\model\EliminarProducto.class
 com\mercadolibre\pojos\Producto.class

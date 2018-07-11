@@ -1,0 +1,5 @@
+pojos\Usuario.class
+util\HibernateUtil.class
+pojos\Carrito.class
+pojos\Producto.class
+model\AltaCarrito.class

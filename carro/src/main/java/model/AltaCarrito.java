@@ -6,11 +6,6 @@
 package model;
 
 import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -22,16 +17,11 @@ import util.HibernateUtil;
  *
  * @author hp desktop
  */
-@Path("/altaCarrito")
 public class AltaCarrito {
     public AltaCarrito(){}
     //(promo=1 -> fecha promocionable; promo=0 -> sin fecha promocionable)
     //da de alta un carrito 
     //en la base de datos y devuelve el id del carrito creado
-    @POST
-    @Path("/insert")
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
     public int altaCarrito(int dni, int promo){
         Usuario user = this.getSpecificUsuario(dni);
         Carrito c = new Carrito(user, promo, null);

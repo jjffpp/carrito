@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/07/2018 15:18:06 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Usuario" table="usuario" catalog="carritodb" optimistic-lock="version">
+        <id name="dni" type="int">
+            <column name="dni" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" />
+        </property>
+        <property name="vip" type="int">
+            <column name="vip" not-null="true" />
+        </property>
+        <set name="carritos" table="carrito" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="usuarioDni" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Carrito" />
+        </set>
+    </class>
+</hibernate-mapping>

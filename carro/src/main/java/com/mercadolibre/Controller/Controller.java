@@ -15,8 +15,11 @@ import com.mercadolibre.pojos.CarritoConMonto;
 import com.mercadolibre.pojos.Producto;
 import java.util.Set;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -24,14 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
     
     @RequestMapping("/welcome")
-    public ResponseEntity welcome() {//Welcome page, non-rest
+    public String welcome() {//Welcome page, non-rest
         String hola=  "Welcome to carrito de compras!";
-        return new ResponseEntity(hola, HttpStatus.OK);
+        return hola;
     }
-    public int altaCarroConFechaPromocionable (int dni){
+    @RequestMapping(value="/altaCarrito/{dni}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity altaCarroConFechaPromocionable (@PathVariable("dni") int dni){
         AltaCarrito ac = new AltaCarrito();
         int idNuevoCarro = ac.altaCarrito(dni, 1);
-        return idNuevoCarro;
+        return new ResponseEntity(idNuevoCarro, HttpStatus.OK);
     } 
     public int altaCarroSinPromocion (int dni){
         AltaCarrito ac = new AltaCarrito();

@@ -16,6 +16,22 @@ public class MontoEstado {
     private Carrito carro;
     private float total;
 
+    public Carrito getCarro() {
+        return carro;
+    }
+
+    public void setCarro(Carrito carro) {
+        this.carro = carro;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
     public MontoEstado(Carrito carro, float total) {
         this.carro = carro;
         this.total = total;

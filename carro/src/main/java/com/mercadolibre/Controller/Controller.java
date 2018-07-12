@@ -5,6 +5,7 @@
  */
 package com.mercadolibre.Controller;
 
+import com.google.gson.Gson;
 import com.mercadolibre.model.AgregarProducto;
 import com.mercadolibre.model.AltaCarrito;
 import com.mercadolibre.model.EliminarCarrito;
@@ -12,14 +13,14 @@ import com.mercadolibre.model.EliminarProducto;
 import com.mercadolibre.model.MontoEstado;
 import com.mercadolibre.pojos.Carrito;
 import com.mercadolibre.pojos.CarritoConMonto;
+import com.mercadolibre.pojos.IdRespuesta;
 import com.mercadolibre.pojos.Producto;
 import java.util.Set;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -31,50 +32,55 @@ public class Controller {
         String hola=  "Welcome to carrito de compras!";
         return hola;
     }
-    @RequestMapping(value="/altaCarrito/{dni}", method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity altaCarroConFechaPromocionable (@PathVariable("dni") int dni){
+    @RequestMapping(value="/alta-Carrito", method=RequestMethod.GET)
+    public ResponseEntity altaCarro (@RequestParam("dni") int dni, @RequestParam("promo") int promo){
         AltaCarrito ac = new AltaCarrito();
-        int idNuevoCarro = ac.altaCarrito(dni, 1);
-        return new ResponseEntity(idNuevoCarro, HttpStatus.OK);
+        IdRespuesta ir = new IdRespuesta();
+        ir.setId(ac.altaCarrito(dni, promo));
+	Gson gson = new Gson();
+	final String representacionJSON = gson.toJson(ir);
+        return new ResponseEntity(representacionJSON, HttpStatus.OK);
     } 
-    public int altaCarroSinPromocion (int dni){
-        AltaCarrito ac = new AltaCarrito();
-        int idNuevoCarro = ac.altaCarrito(dni, 0);
-        return idNuevoCarro;
-    }
-    public void eliminarCarrito(int idcarrito){
+    @RequestMapping(value="/eliminar-Carrito", method=RequestMethod.GET)
+    public ResponseEntity eliminarCarrito(@RequestParam("idcarrito")int idcarrito){
         EliminarCarrito ec = new EliminarCarrito();
         try{
             ec.borrarCarrito(idcarrito);
+            return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }    
     }
-    public CarritoConMonto agregarProductoACarrito(int idcarrito, int idproducto){
+    @RequestMapping(value="/agregar-Producto", method=RequestMethod.GET)
+    public ResponseEntity agregarProductoACarrito(@RequestParam("idcarrito")int idcarrito, @RequestParam("idproducto")int idproducto){
         AgregarProducto ap = new AgregarProducto();
         try{
             Carrito carro = ap.agregarProducto(idcarrito, idproducto);
             float total = calcularTotal(carro.getProductos());
             MontoEstado me = new MontoEstado(carro, total);
             CarritoConMonto ccm = me.finalizacion();
-            return ccm;        
+            Gson gson = new Gson();
+            final String representacionJSON = gson.toJson(ccm);
+            return new ResponseEntity(representacionJSON, HttpStatus.OK);        
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
-        return null;
     }
-    public CarritoConMonto eliminarProductoACarrito(int idcarrito, int idproducto){
+    @RequestMapping(value="/eliminar-Producto", method=RequestMethod.GET)
+    public ResponseEntity eliminarProductoACarrito(@RequestParam("idcarrito")int idcarrito, @RequestParam("idproducto")int idproducto){
         EliminarProducto ep = new EliminarProducto();
         try{
             Carrito carro = ep.eliminarProducto(idcarrito, idproducto);
             float total = calcularTotal(carro.getProductos());
             MontoEstado me = new MontoEstado(carro, total);
             CarritoConMonto ccm = me.finalizacion();
-            return ccm;
+            Gson gson = new Gson();
+            final String representacionJSON = gson.toJson(ccm);
+            return new ResponseEntity(representacionJSON, HttpStatus.OK);    
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
-        return null;
+      
     }
     private float calcularTotal (Set<Producto> prod){
      float total = 0;

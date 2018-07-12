@@ -1,5 +1,6 @@
 com\mercadolibre\Controller\Controller.class
 com\mercadolibre\configuration\InicioConfiguration.class
+com\mercadolibre\pojos\IdRespuesta.class
 com\mercadolibre\model\AltaCarrito.class
 com\mercadolibre\pojos\Usuario.class
 com\mercadolibre\pojos\Carrito.class

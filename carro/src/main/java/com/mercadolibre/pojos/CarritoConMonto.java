@@ -6,29 +6,46 @@
 package com.mercadolibre.pojos;
 
 
+import java.util.HashMap;
+
+
+
 /**
  *
  * @author hp desktop
  */
 public class CarritoConMonto {
     private String estado;
-    private Carrito carrito;
+    private Integer idcarrito;
     private float monto;
+   // private HashMap<String, String> productos;
 
     public CarritoConMonto(Carrito carrito, float monto, String estado) {
-        this.carrito = carrito;
+        this.idcarrito = carrito.getIdcarrito();
         this.monto = monto;
         this.estado = estado;
+       /*
+        for (Producto p : carrito.getProductos()) {
+           this.productos.put(p.getIdproducto().toString(), p.getNombre());
+        }   */
     }
 
-    public Carrito getCarrito() {
-        return carrito;
+    public Integer getIdcarrito() {
+        return idcarrito;
     }
 
-    public void setCarrito(Carrito carrito) {
-        this.carrito = carrito;
+    public void setIdcarrito(Integer idcarrito) {
+        this.idcarrito = idcarrito;
+    }
+/*
+    public HashMap<String, String> getProductos() {
+        return productos;
     }
 
+    public void setProductos(HashMap<String, String> productos) {
+        this.productos = productos;
+    }
+*/
     public float getMonto() {
         return monto;
     }

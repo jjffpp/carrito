@@ -75,7 +75,7 @@ public class MontoEstado {
         return montoFinal;    
     }
     public CarritoConMonto finalizacion() {
-        float montoFinal=0;
+        float montoFinal=total;
         String estado = this.estadoCarro();
         if (carro.getProductos().size() >= 10) {
             montoFinal = this.montoMas10productos(estado);

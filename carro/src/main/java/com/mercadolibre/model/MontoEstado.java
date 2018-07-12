@@ -8,6 +8,7 @@ package com.mercadolibre.model;
 import com.mercadolibre.pojos.Carrito;
 import com.mercadolibre.pojos.CarritoConMonto;
 import com.mercadolibre.pojos.Producto;
+import java.util.HashMap;
 import java.util.Set;
 
 
@@ -85,6 +86,13 @@ public class MontoEstado {
         }
         CarritoConMonto ccm = new CarritoConMonto(carro, montoFinal, estado);
         return ccm;
+    }
+    public HashMap<String, String> productosJson(){
+        HashMap<String, String> mapa = new HashMap<String, String>();
+        for (Producto p : carro.getProductos()) {
+            mapa.put(p.getIdproducto().toString(), p.getNombre());
+        }
+        return mapa;
     }
 
 }

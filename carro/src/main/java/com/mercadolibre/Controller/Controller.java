@@ -15,6 +15,7 @@ import com.mercadolibre.pojos.Carrito;
 import com.mercadolibre.pojos.CarritoConMonto;
 import com.mercadolibre.pojos.IdRespuesta;
 import com.mercadolibre.pojos.Producto;
+import java.util.HashMap;
 import java.util.Set;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
-    
-    @RequestMapping("/welcome")
-    public String welcome() {//Welcome page, non-rest
-        String hola=  "Welcome to carrito de compras!";
-        return hola;
-    }
+
     @RequestMapping(value="/alta-Carrito", method=RequestMethod.GET)
     public ResponseEntity altaCarro (@RequestParam("dni") int dni, @RequestParam("promo") int promo){
         AltaCarrito ac = new AltaCarrito();
@@ -59,9 +55,9 @@ public class Controller {
             float total = calcularTotal(carro.getProductos());
             MontoEstado me = new MontoEstado(carro, total);
             CarritoConMonto ccm = me.finalizacion();
-            Gson gson = new Gson();
-            String representacionJSON = gson.toJson(ccm);
-            return new ResponseEntity(representacionJSON, HttpStatus.OK);        
+            HashMap<String, String> mapa = me.productosJson();
+            String representacionJSON = representacionJSON(ccm, mapa);
+            return new ResponseEntity(representacionJSON , HttpStatus.OK);        
         }catch(Exception e){
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -74,13 +70,18 @@ public class Controller {
             float total = calcularTotal(carro.getProductos());
             MontoEstado me = new MontoEstado(carro, total);
             CarritoConMonto ccm = me.finalizacion();
-            Gson gson = new Gson();
-            String representacionJSON = gson.toJson(ccm);
+            HashMap<String, String> mapa = me.productosJson();
+            String representacionJSON = representacionJSON(ccm, mapa);
             return new ResponseEntity(representacionJSON, HttpStatus.OK);    
         }catch(Exception e){
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
-      
+    }
+    private String representacionJSON(CarritoConMonto ccm, HashMap<String, String> mapa){
+        Gson gson = new Gson();
+        String formaJson1 = gson.toJson(ccm);
+        String formaJson2 =gson.toJson(mapa);
+        return formaJson1 + formaJson2;
     }
     private float calcularTotal (Set<Producto> prod){
      float total = 0;

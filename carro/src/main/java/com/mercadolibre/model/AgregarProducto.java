@@ -29,8 +29,8 @@ public class AgregarProducto {
         Transaction tx = ses.beginTransaction();
         ses.saveOrUpdate(carrito);
         tx.commit();
-        Carrito c = this.getSpecificCarrito(idcarrito);
         ses.close();
+        Carrito c = this.getSpecificCarrito(idcarrito);
         return c;
     }
 

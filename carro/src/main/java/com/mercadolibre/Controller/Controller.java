@@ -56,7 +56,7 @@ public class Controller {
             MontoEstado me = new MontoEstado(carro, total);
             CarritoConMonto ccm = me.finalizacion();
             HashMap<String, String> mapa = me.productosJson();
-            String representacionJSON = representacionJSON(ccm, mapa);
+            String representacionJSON = this.representacionJSON(ccm, mapa);
             return new ResponseEntity(representacionJSON , HttpStatus.OK);        
         }catch(Exception e){
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
@@ -71,7 +71,7 @@ public class Controller {
             MontoEstado me = new MontoEstado(carro, total);
             CarritoConMonto ccm = me.finalizacion();
             HashMap<String, String> mapa = me.productosJson();
-            String representacionJSON = representacionJSON(ccm, mapa);
+            String representacionJSON = this.representacionJSON(ccm, mapa);
             return new ResponseEntity(representacionJSON, HttpStatus.OK);    
         }catch(Exception e){
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);

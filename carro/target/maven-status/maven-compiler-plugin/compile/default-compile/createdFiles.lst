@@ -1,10 +1,9 @@
-com\mercadolibre\exceptions\IdProductoException.class
+com\mercadolibre\exceptions\IdProductoEx.class
+com\mercadolibre\exceptions\DniUsuarioEx.class
 com\mercadolibre\exceptions\MercadoLibreException.class
-com\mercadolibre\exceptions\FechaPromocionableException.class
 com\mercadolibre\configuration\InicioConfiguration.class
 com\mercadolibre\pojos\IdRespuesta.class
 com\mercadolibre\pojos\Carrito.class
-com\mercadolibre\exceptions\IdCarritoException.class
 com\mercadolibre\model\AgregarProducto.class
 com\mercadolibre\model\MontoEstado.class
 com\mercadolibre\pojos\CarritoConMonto.class
@@ -13,8 +12,10 @@ com\mercadolibre\util\HibernateUtil.class
 com\mercadolibre\model\EliminarCarrito.class
 com\mercadolibre\pojos\Producto.class
 com\mercadolibre\Controller\Controller.class
-com\mercadolibre\exceptions\DniUsuarioException.class
+com\mercadolibre\view\ViewRestController.class
+com\mercadolibre\exceptions\ProductoEnCarritoEx.class
 com\mercadolibre\model\AltaCarrito.class
 com\mercadolibre\pojos\Usuario.class
-com\mercadolibre\exceptions\ProductoEnCarritoException.class
+com\mercadolibre\exceptions\IdCarritoEx.class
 com\mercadolibre\model\EliminarProducto.class
+com\mercadolibre\exceptions\FechaPromocionableEx.class

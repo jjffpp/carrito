@@ -7,14 +7,11 @@ package com.mercadolibre.model;
 
 import com.mercadolibre.pojos.Carrito;
 import com.mercadolibre.pojos.Producto;
-import com.mercadolibre.pojos.Usuario;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import com.mercadolibre.util.HibernateUtil;
-import java.util.List;
 
 /**
  *

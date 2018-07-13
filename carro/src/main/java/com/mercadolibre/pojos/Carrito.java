@@ -18,7 +18,9 @@ public class Carrito  implements java.io.Serializable {
 
     public Carrito() {
     }
-
+    public Carrito(int idcarrito){
+        this.idcarrito = idcarrito;
+    }
 	
     public Carrito(Usuario usuario, int promo) {
         this.usuario = usuario;
@@ -57,6 +59,18 @@ public class Carrito  implements java.io.Serializable {
     
     public void setProductos(Set<Producto> productos) {
         this.productos = productos;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Carrito) {
+            Carrito tmpCarrito = (Carrito) obj;
+            if (this.idcarrito == tmpCarrito.idcarrito) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false; }
     }
 
 

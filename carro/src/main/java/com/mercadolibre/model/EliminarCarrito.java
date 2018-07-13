@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.mercadolibre.util.HibernateUtil;
+import java.util.List;
 
 /**
  *
@@ -36,4 +37,5 @@ public class EliminarCarrito {
         ses.close();
         return carrito;
     }
+
 }

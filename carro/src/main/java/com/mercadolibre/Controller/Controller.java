@@ -6,6 +6,14 @@
 package com.mercadolibre.Controller;
 
 import com.google.gson.Gson;
+import com.mercadolibre.exceptions.DniUsuarioException;
+import com.mercadolibre.exceptions.FechaPromocionableException;
+import com.mercadolibre.exceptions.IdCarritoException;
+import com.mercadolibre.exceptions.IdProductoException;
+
+import com.mercadolibre.exceptions.MercadoLibreException;
+import com.mercadolibre.exceptions.ProductoEnCarritoException;
+
 import com.mercadolibre.model.AgregarProducto;
 import com.mercadolibre.model.AltaCarrito;
 import com.mercadolibre.model.EliminarCarrito;
@@ -31,26 +39,44 @@ public class Controller {
     @RequestMapping(value="/alta-Carrito", method=RequestMethod.GET)
     public ResponseEntity altaCarro (@RequestParam("dni") int dni, @RequestParam("promo") int promo){
         AltaCarrito ac = new AltaCarrito();
+        DniUsuarioException due = new DniUsuarioException();
+        FechaPromocionableException fpe = new FechaPromocionableException();
         IdRespuesta ir = new IdRespuesta();
-        ir.setId(ac.altaCarrito(dni, promo));
-	Gson gson = new Gson();
-	final String representacionJSON = gson.toJson(ir);
-        return new ResponseEntity(representacionJSON, HttpStatus.OK);
+        try{
+            due.validarDni(dni);
+            fpe.validarFechaPromocionable(promo);
+            ir.setId(ac.altaCarrito(dni, promo));
+            Gson gson = new Gson();
+            String representacionJSON = gson.toJson(ir);
+            return new ResponseEntity(representacionJSON, HttpStatus.OK);
+        }catch(MercadoLibreException e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }    
     } 
     @RequestMapping(value="/eliminar-Carrito", method=RequestMethod.GET)
     public ResponseEntity eliminarCarrito(@RequestParam("idcarrito")int idcarrito){
         EliminarCarrito ec = new EliminarCarrito();
+        IdCarritoException ice = new IdCarritoException();
         try{
+            ice.validarIdCarrito(idcarrito);
             ec.borrarCarrito(idcarrito);
             return new ResponseEntity(HttpStatus.OK);
-        }catch(Exception e){
+        }catch(MercadoLibreException e){
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }    
     }
     @RequestMapping(value="/agregar-Producto", method=RequestMethod.GET)
     public ResponseEntity agregarProductoACarrito(@RequestParam("idcarrito")int idcarrito, @RequestParam("idproducto")int idproducto){
         AgregarProducto ap = new AgregarProducto();
+        IdCarritoException ice = new IdCarritoException();
+        IdProductoException ipe = new IdProductoException();
+        ProductoEnCarritoException pece = new ProductoEnCarritoException();
         try{
+            ice.validarIdCarrito(idcarrito);
+            ipe.validarIdProducto(idproducto);
+            pece.validarExistenciaProductoEnCarrito(idcarrito, idproducto);
             Carrito carro = ap.agregarProducto(idcarrito, idproducto);
             float total = calcularTotal(carro.getProductos());
             MontoEstado me = new MontoEstado(carro, total);
@@ -58,14 +84,21 @@ public class Controller {
             HashMap<String, String> mapa = me.productosJson();
             String representacionJSON = this.representacionJSON(ccm, mapa);
             return new ResponseEntity(representacionJSON , HttpStatus.OK);        
-        }catch(Exception e){
+        }catch(MercadoLibreException e){
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
     }
     @RequestMapping(value="/eliminar-Producto", method=RequestMethod.GET)
     public ResponseEntity eliminarProductoACarrito(@RequestParam("idcarrito")int idcarrito, @RequestParam("idproducto")int idproducto){
         EliminarProducto ep = new EliminarProducto();
+        IdCarritoException ice = new IdCarritoException();
+        IdProductoException ipe = new IdProductoException();
+        ProductoEnCarritoException pece = new ProductoEnCarritoException();
         try{
+            ice.validarIdCarrito(idcarrito);
+            ipe.validarIdProducto(idproducto);
+            pece.validarInexistenciaProductoEnCarrito(idcarrito, idproducto);
             Carrito carro = ep.eliminarProducto(idcarrito, idproducto);
             float total = calcularTotal(carro.getProductos());
             MontoEstado me = new MontoEstado(carro, total);
@@ -73,7 +106,8 @@ public class Controller {
             HashMap<String, String> mapa = me.productosJson();
             String representacionJSON = this.representacionJSON(ccm, mapa);
             return new ResponseEntity(representacionJSON, HttpStatus.OK);    
-        }catch(Exception e){
+        }catch(MercadoLibreException e){
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
     }

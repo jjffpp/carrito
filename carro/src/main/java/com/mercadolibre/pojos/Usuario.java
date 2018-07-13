@@ -18,7 +18,9 @@ public class Usuario  implements java.io.Serializable {
 
     public Usuario() {
     }
-
+    public Usuario(int dni){
+        this.dni = dni;
+    }
 	
     public Usuario(int dni, int vip) {
         this.dni = dni;
@@ -58,6 +60,20 @@ public class Usuario  implements java.io.Serializable {
     
     public void setCarritos(Set<Carrito> carritos) {
         this.carritos = carritos;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Usuario) {
+            Usuario tmpUsuario = (Usuario) obj;
+            if (this.dni == tmpUsuario.dni) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        } 
     }
 
 

@@ -7,12 +7,14 @@ package com.mercadolibre.model;
 
 import com.mercadolibre.pojos.Carrito;
 import com.mercadolibre.pojos.Producto;
+import com.mercadolibre.pojos.Usuario;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.mercadolibre.util.HibernateUtil;
+import java.util.List;
 
 /**
  *
@@ -21,10 +23,10 @@ import com.mercadolibre.util.HibernateUtil;
 public class AgregarProducto {
 
     public Carrito agregarProducto(int idcarrito, int idproducto) {
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        Session ses = sf.openSession();
         Carrito carrito = this.getSpecificCarrito(idcarrito);
         Producto producto = this.getSpecificProducto(idproducto);
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session ses = sf.openSession();
         carrito.getProductos().add(producto);
         Transaction tx = ses.beginTransaction();
         ses.saveOrUpdate(carrito);
@@ -51,4 +53,6 @@ public class AgregarProducto {
         ses.close();
         return prod;
     }
+
 }
+

@@ -3,6 +3,7 @@ package com.mercadolibre.pojos;
 
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -20,8 +21,8 @@ public class Producto  implements java.io.Serializable {
     }
 
 	
-    public Producto(int valor) {
-        this.valor = valor;
+    public Producto(int idproducto) {
+        this.idproducto = idproducto;
     }
     public Producto(String nombre, int valor, Set<Carrito> carritos) {
        this.nombre = nombre;
@@ -56,6 +57,20 @@ public class Producto  implements java.io.Serializable {
     
     public void setCarritos(Set<Carrito> carritos) {
         this.carritos = carritos;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Producto) {
+            Producto tmpProducto = (Producto) obj;
+            if (this.idproducto == tmpProducto.idproducto) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        } 
     }
 
 

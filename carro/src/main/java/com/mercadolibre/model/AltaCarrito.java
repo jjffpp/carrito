@@ -31,8 +31,8 @@ public class AltaCarrito {
         Transaction tx  = ses.beginTransaction();
         ses.saveOrUpdate(c);
         tx.commit();
-        List<Carrito> lista = this.getAllCarrito();
         ses.close();
+        List<Carrito> lista = this.getAllCarrito();
         return lista.get(lista.size()-1).getIdcarrito();
     }
     private Usuario getSpecificUsuario (int dni){
@@ -49,4 +49,5 @@ public class AltaCarrito {
         ses.close();
         return lista;
     }
+
 }

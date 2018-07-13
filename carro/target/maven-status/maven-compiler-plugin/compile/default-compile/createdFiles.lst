@@ -11,6 +11,7 @@ com\mercadolibre\configuration\Inicio.class
 com\mercadolibre\util\HibernateUtil.class
 com\mercadolibre\model\EliminarCarrito.class
 com\mercadolibre\pojos\Producto.class
+com\mercadolibre\model\ProductoMasCaros.class
 com\mercadolibre\Controller\Controller.class
 com\mercadolibre\view\ViewRestController.class
 com\mercadolibre\exceptions\ProductoEnCarritoEx.class
